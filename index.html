@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>우리의 첫 집, 어디서 살아볼까?</title>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #f2f5fb;
+  --card:     #ffffff;
+  --border:   #e4eaf4;
+  --blue:     #2563eb;
+  --blue-lt:  #eff6ff;
+  --blue-md:  #dbeafe;
+  --orange:   #ea580c;
+  --orange-lt:#fff7ed;
+  --orange-md:#fed7aa;
+  --text:     #111827;
+  --text2:    #374151;
+  --muted:    #9ca3af;
+  --gold:     #d97706;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+  min-height: 100vh;
+  padding: 28px 16px 80px;
+  line-height: 1.6;
+}
+.app { max-width: 680px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+/* ─── HEADER ─── */
+header { text-align: center; padding: 4px 0 2px; }
+.brand { font-size: 20px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; }
+.brand-sub { font-size: 13px; font-weight: 400; color: var(--muted); margin-top: 3px; }
+.brand-tags {
+  display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; margin-top: 8px;
+}
+.brand-tag {
+  display: inline-flex; align-items: center; gap: 3px;
+  padding: 3px 10px; border-radius: 20px;
+  font-size: 11px; font-weight: 600;
+  background: var(--blue-md); color: var(--blue); border: 1px solid #bfdbfe;
+}
+.brand-tag.apt { background: var(--orange-lt); color: #c2410c; border-color: var(--orange-md); }
+
+/* ─── SEARCH CARD ─── */
+.search-card {
+  background: var(--card);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  box-shadow: 0 4px 20px rgba(37,99,235,0.07), 0 1px 4px rgba(0,0,0,0.04);
+  overflow: hidden;
+}
+
+/* search section divider */
+.ss { padding: 20px 22px; }
+.ss + .ss { border-top: 1px solid var(--border); }
+
+/* section question */
+.ss-q { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 14px; }
+.ss-label {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.7px; margin-bottom: 10px;
+}
+
+/* ─── QUICK SELECT ROW ─── */
+.quick-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.qlabel {
+  font-size: 10px; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.5px; padding: 5px 2px; white-space: nowrap;
+}
+.qbtn {
+  padding: 6px 13px; border-radius: 20px;
+  border: 1.5px solid var(--border); background: #f7f9ff;
+  color: #4b5563; font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.13s; white-space: nowrap; font-family: inherit;
+}
+.qbtn:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+.qbtn.theme { background: #fdf4ff; border-color: #e9d5ff; color: #7c3aed; }
+.qbtn.theme:hover { border-color: #a855f7; background: #f5e8ff; color: #6d28d9; }
+
+/* expand toggle */
+.expand-toggle {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: none; border: none; padding: 4px 0; margin-top: 10px;
+  font-size: 12px; color: var(--muted); cursor: pointer;
+  font-family: inherit; transition: color 0.13s;
+}
+.expand-toggle:hover { color: var(--blue); }
+.expand-toggle .arr { display: inline-block; transition: transform 0.2s; font-size: 10px; }
+.expand-toggle.open .arr { transform: rotate(180deg); }
+
+/* chip section (collapsible) */
+.chip-section { display: none; margin-top: 14px; }
+.chip-section.open { display: block; }
+
+.ctabs { display: flex; gap: 5px; margin-bottom: 10px; }
+.ctab {
+  padding: 4px 14px; border-radius: 14px;
+  border: 1px solid var(--border); background: none;
+  color: var(--muted); font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.13s; font-family: inherit;
+}
+.ctab.on { background: var(--blue); border-color: var(--blue); color: #fff; font-weight: 700; }
+
+.chip-grid { display: flex; flex-wrap: wrap; gap: 5px; }
+.chip {
+  padding: 5px 11px; border-radius: 8px;
+  border: 1px solid var(--border); background: #f7f9ff;
+  color: #4b5563; font-size: 12px; font-weight: 500;
+  cursor: pointer; transition: all 0.13s; font-family: inherit;
+}
+.chip:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+.chip.on { background: var(--blue-md); border-color: var(--blue); color: #1d4ed8; font-weight: 700; }
+
+.sel-row {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-top: 10px; font-size: 12px; min-height: 20px;
+}
+.sel-count { color: var(--blue); font-weight: 600; }
+.sel-clear {
+  background: none; border: none; color: var(--muted);
+  font-size: 12px; cursor: pointer; text-decoration: underline; font-family: inherit;
+}
+.sel-clear:hover { color: var(--text); }
+
+/* ─── PILLS (budget / period) ─── */
+.cond-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.cond-col { padding: 0; }
+.cond-col + .cond-col { border-left: 1px solid var(--border); padding-left: 18px; }
+
+.pill-wrap { padding-top: 14px; /* room for badge */ }
+.pill-row { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.pill {
+  position: relative; padding: 7px 16px; border-radius: 20px;
+  border: 1.5px solid var(--border); background: #f7f9ff;
+  color: #4b5563; font-size: 13px; font-weight: 500;
+  cursor: pointer; transition: all 0.13s; white-space: nowrap; font-family: inherit;
+}
+.pill:hover { border-color: var(--orange); color: var(--orange); background: var(--orange-lt); }
+.pill.on { background: var(--orange); border-color: var(--orange); color: #fff; font-weight: 700; }
+.pill.rec { border-color: #fb923c; } /* orange tint when unselected */
+.pill.rec::before {
+  content: '✨ 추천';
+  position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+  font-size: 9px; font-weight: 700; font-style: normal;
+  background: #fef3c7; color: #b45309; border: 1px solid #fde68a;
+  padding: 1px 6px; border-radius: 8px; white-space: nowrap; pointer-events: none;
+}
+
+/* period pills (blue) */
+.ppill:hover { border-color: var(--blue); color: var(--blue); background: var(--blue-lt); }
+.ppill.on { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+.pill-hint { font-size: 11px; color: var(--muted); margin-top: 8px; line-height: 1.4; }
+
+/* ─── CTA ─── */
+.sc-cta { padding: 14px 22px; background: #f7f9ff; border-top: 1px solid var(--border); }
+.cta {
+  width: 100%; padding: 14px; border-radius: 12px; border: none;
+  background: var(--blue); color: #fff;
+  font-size: 15px; font-weight: 700; letter-spacing: -0.2px;
+  cursor: pointer; transition: all 0.15s;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  font-family: inherit;
+}
+.cta:hover:not(:disabled) {
+  background: #1d4ed8;
+  box-shadow: 0 4px 16px rgba(37,99,235,0.3);
+  transform: translateY(-1px);
+}
+.cta:disabled { background: #e5e7eb; color: #9ca3af; cursor: not-allowed; transform: none; }
+
+/* ─── LOADING ─── */
+.loading { display: none; text-align: center; padding: 40px 20px; }
+.loading.on { display: block; }
+.spinner {
+  width: 30px; height: 30px; margin: 0 auto 12px;
+  border: 3px solid var(--blue-md); border-top-color: var(--blue);
+  border-radius: 50%; animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.loading-txt { color: var(--muted); font-size: 13px; }
+
+/* ─── ERROR ─── */
+.err-box { display: none; background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 18px; }
+.err-box.on { display: block; }
+.err-box b { display: block; color: #dc2626; margin-bottom: 6px; font-size: 14px; }
+.err-box p { font-size: 13px; color: #7f1d1d; line-height: 1.5; white-space: pre-wrap; }
+.err-box code {
+  display: block; margin-top: 10px; padding: 10px; background: #f1f5f9;
+  border-radius: 6px; font-size: 11px; color: #0f766e; white-space: pre-wrap; word-break: break-all;
+}
+
+/* ─── RESULTS ─── */
+#results { display: none; }
+#results.on { display: flex; flex-direction: column; gap: 14px; }
+
+.res-summary {
+  padding: 11px 16px; background: var(--blue-lt);
+  border: 1px solid var(--blue-md); border-radius: 12px;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 8px; font-size: 13px;
+}
+.res-summary-info { color: var(--text2); }
+.res-summary-count { font-size: 14px; font-weight: 800; color: var(--blue); }
+
+.sec-title {
+  font-size: 11px; font-weight: 700; color: var(--muted);
+  letter-spacing: 0.6px; text-transform: uppercase; padding: 0 2px;
+}
+
+/* TOP 3 */
+.top3 { display: flex; flex-direction: column; gap: 12px; }
+
+.rcard {
+  background: var(--card); border-radius: 16px; padding: 20px;
+  position: relative; transition: transform 0.14s, box-shadow 0.14s;
+}
+.rcard:hover { transform: translateY(-2px); }
+.rcard[data-r="1"] { border: 2px solid #fbbf24; box-shadow: 0 2px 16px rgba(251,191,36,0.18); }
+.rcard[data-r="2"] { border: 2px solid #d1d5db; box-shadow: 0 2px 16px rgba(107,114,128,0.12); }
+.rcard[data-r="3"] { border: 2px solid #d97706; box-shadow: 0 2px 16px rgba(180,83,9,0.12); }
+
+.rcard-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 10px; }
+.rcard-medal { font-size: 26px; line-height: 1; }
+.rcard-score { text-align: right; }
+.rcard-score-n { font-size: 22px; font-weight: 900; line-height: 1; }
+.rcard[data-r="1"] .rcard-score-n { color: #d97706; }
+.rcard[data-r="2"] .rcard-score-n { color: #6b7280; }
+.rcard[data-r="3"] .rcard-score-n { color: #92400e; }
+.rcard-score-s { font-size: 10px; color: var(--muted); }
+
+.rcard-name { font-size: 21px; font-weight: 800; color: var(--text); letter-spacing: -0.4px; line-height: 1.15; }
+.rcard-loc { font-size: 12px; color: var(--muted); margin-top: 2px; margin-bottom: 12px; }
+
+.price-box {
+  background: var(--orange-lt); border: 1px solid var(--orange-md);
+  border-radius: 10px; padding: 10px 14px; margin-bottom: 12px;
+}
+.price-range { font-size: 18px; font-weight: 800; color: var(--orange); }
+.price-meta { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; font-size: 12px; color: #78350f; }
+.price-meta .avg { font-weight: 700; }
+.price-meta .vol {
+  background: var(--orange-md); padding: 1px 8px; border-radius: 10px; font-size: 11px;
+}
+
+.divider { height: 1px; background: var(--border); margin: 12px 0; }
+
+.reasons { display: flex; flex-direction: column; gap: 6px; margin-bottom: 10px; }
+.reason { display: flex; align-items: flex-start; gap: 8px; font-size: 12px; color: var(--text2); line-height: 1.45; }
+.reason-ic { font-size: 14px; flex-shrink: 0; }
+
+.review {
+  font-size: 12px; font-style: italic; color: #1d4ed8;
+  background: var(--blue-lt); border-left: 3px solid #93c5fd;
+  padding: 8px 12px; border-radius: 0 8px 8px 0; line-height: 1.5;
+}
+.review::before { content: '"'; }
+.review::after  { content: '"'; }
+
+/* LIST (4위+) */
+.apt-list { display: flex; flex-direction: column; gap: 3px; }
+.apt-row {
+  background: var(--card); border: 1px solid var(--border); border-radius: 10px;
+  padding: 12px 14px; display: grid; grid-template-columns: 28px 1fr auto;
+  gap: 10px; align-items: start; transition: all 0.13s;
+}
+.apt-row:hover { border-color: #93c5fd; box-shadow: 0 2px 8px rgba(37,99,235,0.07); }
+.apt-rank { font-size: 13px; font-weight: 800; color: var(--muted); padding-top: 1px; }
+.apt-name { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 1px; }
+.apt-loc  { font-size: 11px; color: var(--muted); margin-bottom: 4px; }
+.apt-info { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 3px; }
+.apt-info .pr { color: var(--orange); font-weight: 700; }
+.apt-rev { font-size: 11px; font-style: italic; color: #6b7280; line-height: 1.4; }
+.apt-rev::before { content: '"'; }
+.apt-rev::after  { content: '"'; }
+.apt-score { font-size: 14px; font-weight: 800; color: var(--gold); white-space: nowrap; padding-top: 1px; }
+
+.no-res { text-align: center; padding: 48px 20px; color: var(--muted); font-size: 14px; }
+
+/* ─── MOBILE ─── */
+@media (max-width: 560px) {
+  .cond-grid { grid-template-columns: 1fr; }
+  .cond-col + .cond-col { border-left: none; border-top: 1px solid var(--border); padding-left: 0; padding-top: 16px; margin-top: 4px; }
+  .rcard-name { font-size: 18px; }
+  .pill { font-size: 12px; padding: 6px 13px; }
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="brand">🏠 두 사람의 첫 번째 동네</div>
+  <div class="brand-sub">어디서 시작할까요, 우리?</div>
+  <div class="brand-tags">
+    <span class="brand-tag apt">🏢 아파트 매물</span>
+    <span class="brand-tag">📊 국토부 실거래가</span>
+  </div>
+</header>
+
+<!-- ─── SEARCH CARD ─── -->
+<div class="search-card">
+
+  <!-- SECTION 1: 지역 -->
+  <div class="ss">
+    <div class="ss-q">어디서 살고 싶어요?</div>
+
+    <div class="quick-row">
+      <span class="qlabel">테마</span>
+      <button class="qbtn theme" onclick="quickSel('newlywed')">💑 신혼부부 픽</button>
+      <button class="qbtn theme" onclick="quickSel('mayong')">🌊 마용성광</button>
+      <button class="qbtn theme" onclick="quickSel('nodog')">🍃 노도강</button>
+      <span class="qlabel" style="margin-left:4px">지역</span>
+      <button class="qbtn" onclick="quickSel('gbuk')">서울 강북권</button>
+      <button class="qbtn" onclick="quickSel('gnam')">서울 강남권</button>
+    </div>
+
+    <button class="expand-toggle" id="expandToggle" onclick="toggleChips()">
+      직접 선택하기 <span class="arr">▾</span>
+    </button>
+
+    <div class="chip-section" id="chipSection">
+      <div class="ctabs">
+        <button class="ctab on" id="ctab-seoul" onclick="switchCtab('seoul')">서울</button>
+        <button class="ctab"    id="ctab-metro" onclick="switchCtab('metro')">경기·인천</button>
+      </div>
+      <div class="chip-grid" id="cgrid-seoul"></div>
+      <div class="chip-grid" id="cgrid-metro" style="display:none"></div>
+      <div class="sel-row">
+        <span class="sel-count" id="selCount"></span>
+        <button class="sel-clear" onclick="clearAll()">전체 해제</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 2: 조건 -->
+  <div class="ss">
+    <div class="cond-grid">
+
+      <div class="cond-col">
+        <div class="ss-label">💰 최대 예산</div>
+        <div class="pill-wrap">
+          <div class="pill-row" id="pricePills">
+            <button class="pill" data-v="3"  onclick="selPrice(3)">3억</button>
+            <button class="pill" data-v="4"  onclick="selPrice(4)">4억</button>
+            <button class="pill" data-v="5"  onclick="selPrice(5)">5억</button>
+            <button class="pill rec" data-v="6"  onclick="selPrice(6)">6억</button>
+            <button class="pill" data-v="8"  onclick="selPrice(8)">8억</button>
+            <button class="pill" data-v="10" onclick="selPrice(10)">10억+</button>
+          </div>
+        </div>
+        <div class="pill-hint">신혼 첫 아파트로 가장 많이 선택하는 예산이에요</div>
+      </div>
+
+      <div class="cond-col">
+        <div class="ss-label">📅 조회 기간</div>
+        <div class="pill-wrap">
+          <div class="pill-row" id="periodPills">
+            <button class="pill ppill" data-v="1"  onclick="selPeriod(1)">1개월</button>
+            <button class="pill ppill" data-v="3"  onclick="selPeriod(3)">3개월</button>
+            <button class="pill ppill" data-v="6"  onclick="selPeriod(6)">6개월</button>
+            <button class="pill ppill" data-v="12" onclick="selPeriod(12)">12개월</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="sc-cta">
+    <button class="cta" id="searchBtn" onclick="doFetch()" disabled>
+      🔍 아파트 찾기
+    </button>
+  </div>
+
+</div><!-- /.search-card -->
+
+<!-- ─── LOADING ─── -->
+<div class="loading" id="loading">
+  <div class="spinner"></div>
+  <div class="loading-txt" id="loadingTxt">조회 중...</div>
+</div>
+
+<!-- ─── ERROR ─── -->
+<div class="err-box" id="errBox"></div>
+
+<!-- ─── RESULTS ─── -->
+<div id="results">
+  <div class="res-summary" id="resSummary"></div>
+  <div class="sec-title">TOP 3 추천 단지</div>
+  <div class="top3" id="top3"></div>
+  <div class="sec-title" style="margin-top:6px">전체 순위</div>
+  <div class="apt-list" id="aptList"></div>
+</div>
+
+</div><!-- /.app -->
+
+<script>
+/* ─── 지역 데이터 ─── */
+const SEOUL = {
+  "강남구":"11680","강동구":"11740","강북구":"11305","강서구":"11500",
+  "관악구":"11620","광진구":"11215","구로구":"11530","금천구":"11545",
+  "노원구":"11350","도봉구":"11320","동대문구":"11230","동작구":"11590",
+  "마포구":"11440","서대문구":"11410","서초구":"11650","성동구":"11200",
+  "성북구":"11290","송파구":"11710","양천구":"11470","영등포구":"11560",
+  "용산구":"11170","은평구":"11380","종로구":"11110","중구":"11140","중랑구":"11260"
+}
+const METRO = {
+  "수원장안구":"41111","수원권선구":"41113","수원팔달구":"41115","수원영통구":"41117",
+  "성남수정구":"41131","성남중원구":"41133","성남분당구":"41135",
+  "의정부시":"41150","안양만안구":"41171","안양동안구":"41173",
+  "부천시":"41190","광명시":"41210","안산상록구":"41271","안산단원구":"41273",
+  "고양덕양구":"41281","고양일산동구":"41285","고양일산서구":"41287",
+  "과천시":"41290","구리시":"41310","남양주시":"41360","하남시":"41450",
+  "용인처인구":"41461","용인기흥구":"41463","용인수지구":"41465",
+  "파주시":"41480","김포시":"41570","화성시":"41590",
+  "인천미추홀구":"28177","인천연수구":"28185","인천남동구":"28200",
+  "인천부평구":"28237","인천서구":"28260"
+}
+
+const PRESETS = {
+  newlywed: ["노원구","마포구","은평구","강서구","성북구"],
+  mayong:   ["마포구","용산구","성동구","광진구"],
+  nodog:    ["노원구","도봉구","강북구"],
+  gbuk:     ["강북구","노원구","도봉구","성북구","은평구","중랑구","동대문구"],
+  gnam:     ["강남구","서초구","송파구","강동구","성동구","광진구"],
+}
+
+const DONG = {
+  "상계동":  { sub:"4·7호선 노원역·마들역", note:"상계주공 재건축 추진", tag:"재건축기대" },
+  "중계동":  { sub:"7호선 중계역", edu:"은행사거리 학원가 (강북 대치동)", tag:"학군최강" },
+  "하계동":  { sub:"7호선 하계역·공릉역", note:"을지대병원 근접", tag:"생활편의" },
+  "공릉동":  { sub:"6호선 화랑대역", edu:"태릉초·공릉중 초세권", tag:"교육환경" },
+  "월계동":  { sub:"1호선 월계역·광운대역", note:"광운대·성신여대 인근", tag:"대학가" },
+  "도봉동":  { sub:"1호선 방학역", note:"도봉산 인근 쾌적", tag:"자연환경" },
+  "쌍문동":  { sub:"1호선 쌍문역", note:"덕성여대·한성대 인근", tag:"대학가" },
+  "방학동":  { sub:"1호선 방학역", note:"도봉산 트레킹 접근", tag:"자연환경" },
+  "창동":    { sub:"1·4호선 창동역", note:"GTX-C 수혜 예정", tag:"미래가치" },
+  "번동":    { sub:"4호선 수유역", note:"강북구 상권 중심", tag:"생활편의" },
+  "미아동":  { sub:"4호선 미아역·미아사거리역", note:"롯데백화점 미아점", tag:"생활편의" },
+  "수유동":  { sub:"4호선 수유역", note:"강북 최대 상권", tag:"생활편의" },
+  "길음동":  { sub:"4호선 길음역", note:"길음뉴타운 정비중", tag:"재건축기대" },
+  "장위동":  { sub:"6호선 돌곶이역", note:"장위뉴타운 정비중", tag:"재건축기대" },
+  "불광동":  { sub:"3·6호선 불광역", note:"더블역세권 은평 핵심", tag:"역세권" },
+  "녹번동":  { sub:"3호선 녹번역", note:"은평뉴타운 인근", tag:"재건축기대" },
+  "상암동":  { sub:"6호선 월드컵경기장역", note:"DMC IT 직주근접", tag:"직주근접" },
+  "합정동":  { sub:"2·6호선 합정역", note:"홍대 인근 젊은 감성", tag:"역세권" },
+  "망원동":  { sub:"6호선 망원역", note:"망원한강공원 인접", tag:"자연환경" },
+  "화곡동":  { sub:"5호선 화곡역·우장산역", note:"강서구 최대 상권", tag:"생활편의" },
+  "가양동":  { sub:"9호선 가양역", note:"한강 조망 가능", tag:"자연환경" },
+  "구로동":  { sub:"1·2호선 구로역", note:"구로디지털단지 직주근접", tag:"직주근접" },
+  "신도림동":{ sub:"1·2호선 신도림역", note:"교통 허브 디큐브시티", tag:"역세권" },
+  "봉천동":  { sub:"2호선 봉천역·서울대입구역", note:"서울대 상권", tag:"대학가" },
+  "신림동":  { sub:"2호선 신림역·서원역", note:"신림선 개통 역세권", tag:"역세권" },
+  "상도동":  { sub:"7호선 상도역·장승배기역", note:"숭실대 인근", tag:"대학가" },
+  "당산동":  { sub:"2·9호선 당산역", note:"영등포 핵심 역세권", tag:"역세권" },
+  "신길동":  { sub:"5호선 신길역", note:"여의도 출퇴근 쾌적", tag:"직주근접" },
+  "목동":    { sub:"5호선 목동역·오목교역", edu:"목동 학원가 최강 학군", tag:"학군최강" },
+  "행당동":  { sub:"2·5호선 왕십리역", note:"왕십리 재개발 기대", tag:"재건축기대" },
+  "구의동":  { sub:"2·5호선 구의역·광나루역", note:"강동 접근성 우수", tag:"역세권" },
+  "면목동":  { sub:"7호선 면목역", note:"경의중앙선 환승 편의", tag:"역세권" },
+  "고덕동":  { sub:"5호선 고덕역·명일역", note:"고덕강일지구 신도시", tag:"미래가치" },
+  "둔촌동":  { sub:"5호선 둔촌동역", note:"올림픽파크포레온 입주", tag:"미래가치" },
+  "분당동":  { sub:"분당선 서현역·이매역", edu:"분당 최강 학군", tag:"학군최강" },
+  "평촌동":  { sub:"4호선 범계역·평촌역", edu:"평촌 학원가", tag:"학군최강" },
+}
+
+/* ─── 상태 ─── */
+const sel = { seoul: new Set(), metro: new Set() }
+let curCtab  = 'seoul'
+let maxPrice = 6   // 억
+let months   = 3
+
+/* ─── INIT ─── */
+function init() {
+  buildChips('seoul', SEOUL)
+  buildChips('metro', METRO)
+  // 기본값 표시
+  selPrice(6)
+  selPeriod(3)
+  updateSelCount()
+}
+
+function buildChips(tab, data) {
+  const el = document.getElementById('cgrid-' + tab)
+  Object.keys(data).forEach(name => {
+    const b = document.createElement('button')
+    b.className = 'chip'
+    b.textContent = name
+    b.onclick = () => toggleChip(tab, name, b)
+    el.appendChild(b)
+  })
+}
+
+/* ─── 지역 토글 ─── */
+function toggleChip(tab, name, el) {
+  if (sel[tab].has(name)) { sel[tab].delete(name); el.classList.remove('on') }
+  else                    { sel[tab].add(name);    el.classList.add('on')    }
+  updateSelCount()
+  updateCTA()
+}
+
+function toggleChips() {
+  const sec = document.getElementById('chipSection')
+  const btn = document.getElementById('expandToggle')
+  const open = sec.classList.toggle('open')
+  btn.classList.toggle('open', open)
+}
+
+function switchCtab(tab) {
+  curCtab = tab
+  document.getElementById('cgrid-seoul').style.display = tab === 'seoul' ? 'flex' : 'none'
+  document.getElementById('cgrid-metro').style.display = tab === 'metro' ? 'flex' : 'none'
+  document.querySelectorAll('.ctab').forEach((t, i) =>
+    t.classList.toggle('on', (i === 0 && tab === 'seoul') || (i === 1 && tab === 'metro'))
+  )
+}
+
+function quickSel(type) {
+  const names = PRESETS[type] || []
+  names.forEach(name => {
+    sel.seoul.add(name)
+    document.querySelectorAll('#cgrid-seoul .chip').forEach(c => {
+      if (c.textContent === name) c.classList.add('on')
+    })
+  })
+  updateSelCount()
+  updateCTA()
+}
+
+function clearAll() {
+  sel.seoul.clear(); sel.metro.clear()
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('on'))
+  updateSelCount()
+  updateCTA()
+}
+
+function updateSelCount() {
+  const n = sel.seoul.size + sel.metro.size
+  document.getElementById('selCount').textContent = n > 0 ? `${n}개 지역 선택됨` : ''
+}
+function updateCTA() {
+  document.getElementById('searchBtn').disabled = (sel.seoul.size + sel.metro.size === 0)
+}
+
+/* ─── 가격/기간 필 ─── */
+function selPrice(v) {
+  maxPrice = v
+  document.querySelectorAll('#pricePills .pill').forEach(p => {
+    p.classList.toggle('on', parseInt(p.dataset.v) === v)
+  })
+}
+function selPeriod(v) {
+  months = v
+  document.querySelectorAll('#periodPills .pill').forEach(p => {
+    p.classList.toggle('on', parseInt(p.dataset.v) === v)
+  })
+}
+
+/* ─── 날짜 유틸 ─── */
+function getYM(n) {
+  const list = []
+  const now = new Date()
+  for (let i = 0; i < n; i++) {
+    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+    list.push(`${d.getFullYear()}${String(d.getMonth()+1).padStart(2,'0')}`)
+  }
+  return list
+}
+
+/* ─── API 호출 ─── */
+async function doFetch() {
+  const maxAmt = maxPrice * 10000
+  const regions = []
+  sel.seoul.forEach(n => regions.push({ name: n, code: SEOUL[n] }))
+  sel.metro.forEach(n => regions.push({ name: n, code: METRO[n] }))
+  if (!regions.length) return
+
+  const ymList = getYM(months)
+
+  document.getElementById('loading').classList.add('on')
+  document.getElementById('errBox').classList.remove('on')
+  document.getElementById('results').classList.remove('on')
+  document.getElementById('searchBtn').disabled = true
+  document.getElementById('loadingTxt').textContent =
+    `조회 중... (${regions.length}개 지역 × ${months}개월)`
+
+  const allTrades = []
+  try {
+    for (const r of regions) {
+      for (const ym of ymList) {
+        try {
+          const res = await fetch(`/api/trades?lawd_cd=${r.code}&deal_ymd=${ym}`)
+          if (!res.ok) throw new Error(`HTTP ${res.status}`)
+          allTrades.push(...parseXml(await res.text(), r.name))
+        } catch(e) { console.warn(r.name, ym, e) }
+      }
+    }
+
+    if (!allTrades.length) { showErr('조회된 데이터가 없습니다.'); return }
+
+    const filtered = allTrades.filter(t => t.amt <= maxAmt)
+    if (!filtered.length) { showErr(`${maxPrice}억 이하 아파트 거래가 없습니다.`); return }
+
+    renderResults(analyze(filtered), filtered.length, regions)
+  } catch(e) {
+    showErr(
+      'API 연결 오류가 발생했습니다.\n로컬 개발 시 아래 명령어를 실행해주세요:',
+      'npx vercel dev'
+    )
+  } finally {
+    document.getElementById('loading').classList.remove('on')
+    document.getElementById('searchBtn').disabled = false
+  }
+}
+
+function showErr(msg, code) {
+  const box = document.getElementById('errBox')
+  box.innerHTML = `<b>⚠ 오류</b><p>${msg}</p>` + (code ? `<code>${code}</code>` : '')
+  box.classList.add('on')
+}
+
+/* ─── XML 파싱 ─── */
+function parseXml(xml, regionName) {
+  const trades = []
+  try {
+    const doc = new DOMParser().parseFromString(xml, 'text/xml')
+    doc.querySelectorAll('item').forEach(item => {
+      const g = t => (item.querySelector(t)?.textContent || '').trim()
+      const amt = parseInt(g('dealAmount').replace(/,/g,''))
+      const area = parseFloat(g('excluUseAr')) || 0
+      const aptNm = g('aptNm'), dong = g('umdNm'), buildYear = g('buildYear') || '1988'
+      if (!aptNm || isNaN(amt) || amt <= 0) return
+      trades.push({ regionName, aptNm, dong, buildYear, amt, area })
+    })
+  } catch(e) {}
+  return trades
+}
+
+/* ─── 단지 집계 ─── */
+function analyze(trades) {
+  const map = new Map()
+  trades.forEach(t => {
+    const key = `${t.regionName}__${t.dong}__${t.aptNm}`
+    if (!map.has(key)) map.set(key, { ...t, prices:[], areas:[], count:0 })
+    const c = map.get(key)
+    c.prices.push(t.amt); c.areas.push(t.area); c.count++
+    if (t.buildYear && t.buildYear !== '1988') c.buildYear = t.buildYear
+  })
+  const res = []
+  map.forEach(c => {
+    if (c.count < 2) return
+    c.minP = Math.min(...c.prices); c.maxP = Math.max(...c.prices)
+    c.avg  = Math.round(c.prices.reduce((a,b)=>a+b,0)/c.prices.length)
+    c.minA = Math.min(...c.areas);  c.maxA = Math.max(...c.areas)
+    c.score = calcScore(c, c.dong)
+    res.push(c)
+  })
+  return res.sort((a,b)=>b.score-a.score).slice(0,15)
+}
+
+/* ─── 점수 계산 ─── */
+function calcScore(c, dong) {
+  const d = DONG[dong] || {}
+  const age = 2026 - parseInt(c.buildYear||1988)
+  let s = 0
+  s += Math.min(Math.round(c.count*1.2), 20)                              // 거래 활성도 0~20
+  s += age<=5?20 : age<=10?17 : age<=15?13 : age<=25?8 : 3               // 연식 0~20
+  s += Math.min(Math.max(Math.round((60000-c.avg)/2500),0), 20)           // 가성비 0~20
+  s += c.maxA>=59?15 : c.maxA>=40?10 : 3                                  // 면적 0~15
+  const bonus = {학군최강:25,역세권:20,직주근접:20,재건축기대:18,교육환경:18,미래가치:15,생활편의:12,대학가:10,자연환경:8}
+  s += bonus[d.tag] || 0                                                   // 동네 특성 0~25
+  return Math.min(Math.round(s), 100)
+}
+
+/* ─── 한줄평 ─── */
+function mkReview(c, dong) {
+  const d = DONG[dong] || {}
+  const age = 2026 - parseInt(c.buildYear||1988)
+  const parts = []
+  if (d.sub) parts.push(d.sub)
+  if (d.edu) parts.push(d.edu)
+  else if (d.note) parts.push(d.note)
+  if (age <= 5) parts.push(`${c.buildYear}년 신축`)
+  else if (age >= 33) parts.push('재건축 대상 구축')
+  if (c.maxA>=59 && c.minA<=59) parts.push('국민평수 59㎡ 보유')
+  parts.push(c.avg<35000?'3억대 실속형':c.avg<45000?'4억대 합리적':c.avg<55000?'5억대 안정':  '6억 근접 상급지')
+  return parts.filter(Boolean).slice(0,3).join(' · ')
+}
+
+/* ─── 추천 이유 ─── */
+function mkReasons(c, dong) {
+  const d = DONG[dong] || {}
+  const age = 2026 - parseInt(c.buildYear||1988)
+  const r = []
+  r.push({ ic: '🚇', txt: d.sub ? d.sub + ' 역세권' : '버스 중심 교통 (현장 확인 권장)' })
+  r.push({ ic: '💰', txt: `평균 ${(c.avg/10000).toFixed(1)}억 · 거래 ${c.count}건으로 시장 검증` })
+  if      (d.edu)       r.push({ ic:'🏫', txt: d.edu })
+  else if (d.note)      r.push({ ic:'✨', txt: d.note })
+  else if (age>=33)     r.push({ ic:'🔨', txt: '재건축 추진 가능, 장기 보유시 기대' })
+  else if (c.maxA>=59)  r.push({ ic:'📐', txt: '전용 59㎡ 이상 보유, 넉넉한 신혼 공간' })
+  return r.slice(0,3)
+}
+
+/* ─── 가격 포맷 ─── */
+function fP(v) {
+  if (v>=10000) { const e=Math.floor(v/10000),r=v%10000; return r?`${e}억 ${r.toLocaleString()}만`:`${e}억` }
+  return `${v.toLocaleString()}만`
+}
+function fR(a,b) { return a===b ? fP(a) : `${fP(a)} ~ ${fP(b)}` }
+
+/* ─── 결과 렌더 ─── */
+function renderResults(cs, total, regions) {
+  const rn = regions.map(r=>r.name).join('·')
+  document.getElementById('resSummary').innerHTML = `
+    <span class="res-summary-info">🏢 아파트 · ${rn} · 최근 ${months}개월 · ${maxPrice}억 이하</span>
+    <span class="res-summary-count">${cs.length}개 단지 발견</span>
+  `
+
+  /* TOP 3 */
+  const top3El = document.getElementById('top3')
+  top3El.innerHTML = ''
+  cs.slice(0,3).forEach((c,i) => {
+    const rank = i+1
+    const medal = ['','🥇','🥈','🥉'][rank]
+    const reasons = mkReasons(c, c.dong)
+    const review  = mkReview(c, c.dong)
+    const div = document.createElement('div')
+    div.className = 'rcard'
+    div.setAttribute('data-r', rank)
+    div.innerHTML = `
+      <div class="rcard-top">
+        <div class="rcard-medal">${medal}</div>
+        <div class="rcard-score">
+          <div class="rcard-score-n">${c.score}</div>
+          <div class="rcard-score-s">/ 100</div>
+        </div>
+      </div>
+      <div class="rcard-name">${c.aptNm}</div>
+      <div class="rcard-loc">${c.dong} · ${c.regionName} · ${c.buildYear}년식</div>
+      <div class="price-box">
+        <div class="price-range">${fR(c.minP, c.maxP)}</div>
+        <div class="price-meta">
+          <span class="avg">평균 ${fP(c.avg)}</span>
+          <span class="vol">거래 ${c.count}건</span>
+          <span>전용 ${c.minA.toFixed(0)}~${c.maxA.toFixed(0)}㎡</span>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="reasons">
+        ${reasons.map(r=>`<div class="reason"><span class="reason-ic">${r.ic}</span><span>${r.txt}</span></div>`).join('')}
+      </div>
+      <div class="review">${review}</div>
+    `
+    top3El.appendChild(div)
+  })
+
+  /* 4위+ */
+  const listEl = document.getElementById('aptList')
+  listEl.innerHTML = ''
+  const rest = cs.slice(3)
+  if (!rest.length) { listEl.innerHTML = '<div class="no-res">TOP 3 이후 추가 단지가 없어요.</div>'; }
+  else rest.forEach((c,i) => {
+    const d = document.createElement('div')
+    d.className = 'apt-row'
+    d.innerHTML = `
+      <div class="apt-rank">${i+4}</div>
+      <div>
+        <div class="apt-name">${c.aptNm}</div>
+        <div class="apt-loc">${c.dong} · ${c.regionName}</div>
+        <div class="apt-info">
+          <span class="pr">${fR(c.minP,c.maxP)}</span>
+          <span>평균 ${fP(c.avg)}</span>
+          <span>${c.minA.toFixed(0)}~${c.maxA.toFixed(0)}㎡</span>
+          <span>${c.buildYear}년식</span>
+          <span>거래 ${c.count}건</span>
+        </div>
+        <div class="apt-rev">${mkReview(c, c.dong)}</div>
+      </div>
+      <div class="apt-score">${c.score}점</div>
+    `
+    listEl.appendChild(d)
+  })
+
+  document.getElementById('results').classList.add('on')
+  document.getElementById('results').scrollIntoView({ behavior:'smooth', block:'start' })
+}
+
+init()
+</script>
+</body>
+</html>
