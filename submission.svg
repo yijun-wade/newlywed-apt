@@ -1,0 +1,189 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="800" viewBox="0 0 1280 800">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#eef2ff"/>
+      <stop offset="60%" style="stop-color:#f0f9ff"/>
+      <stop offset="100%" style="stop-color:#fff7ed"/>
+    </linearGradient>
+    <linearGradient id="bluebtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#3b82f6"/>
+      <stop offset="100%" style="stop-color:#2563eb"/>
+    </linearGradient>
+    <filter id="card-shadow">
+      <feDropShadow dx="0" dy="8" stdDeviation="24" flood-color="#2563eb" flood-opacity="0.10"/>
+    </filter>
+    <filter id="sm-shadow">
+      <feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000" flood-opacity="0.06"/>
+    </filter>
+    <filter id="top3-shadow">
+      <feDropShadow dx="0" dy="6" stdDeviation="16" flood-color="#f59e0b" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="800" fill="url(#bg)"/>
+
+  <!-- Dot pattern -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="1.5" fill="#94a3b8" opacity="0.25"/>
+  </pattern>
+  <rect width="1280" height="800" fill="url(#dots)"/>
+
+  <!-- Decorative blobs -->
+  <circle cx="1180" cy="120" r="240" fill="#2563eb" opacity="0.04"/>
+  <circle cx="60" cy="700" r="180" fill="#ea580c" opacity="0.05"/>
+
+  <!-- ───────── LEFT PANEL ───────── -->
+
+  <!-- Header brand -->
+  <text x="80" y="96" font-family="Apple Color Emoji, Segoe UI Emoji, sans-serif" font-size="44">🏠</text>
+  <text x="138" y="92" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="28" font-weight="800" fill="#1e293b" letter-spacing="-0.5">두 사람의 첫 번째 동네</text>
+  <text x="138" y="118" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="16" font-weight="400" fill="#64748b">어디서 시작할까요, 우리?</text>
+
+  <!-- Badges -->
+  <rect x="80" y="136" width="120" height="28" rx="14" fill="#fff3e0" stroke="#fed7aa" stroke-width="1"/>
+  <text x="140" y="154" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="600" fill="#c2410c" text-anchor="middle">🏢 아파트 매물</text>
+  <rect x="210" y="136" width="140" height="28" rx="14" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="280" y="154" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="600" fill="#2563eb" text-anchor="middle">📊 국토부 실거래가</text>
+
+  <!-- Search Card mock -->
+  <rect x="80" y="188" width="490" height="380" rx="22" fill="white" filter="url(#card-shadow)"/>
+  <rect x="80" y="188" width="490" height="380" rx="22" fill="none" stroke="#e4eaf4" stroke-width="1.5"/>
+
+  <!-- Section: 지역 -->
+  <text x="112" y="228" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.5">지역 선택</text>
+
+  <!-- Theme pills -->
+  <rect x="112" y="238" width="100" height="30" rx="15" fill="#fef3c7" stroke="#fde68a" stroke-width="1"/>
+  <text x="162" y="257" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="600" fill="#92400e" text-anchor="middle">💑 신혼부부픽</text>
+
+  <rect x="222" y="238" width="88" height="30" rx="15" fill="#dbeafe" stroke="#bfdbfe" stroke-width="1.5"/>
+  <text x="266" y="257" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="600" fill="#2563eb" text-anchor="middle">🌊 마용성광</text>
+
+  <rect x="320" y="238" width="80" height="30" rx="15" fill="#f0fdf4" stroke="#bbf7d0" stroke-width="1"/>
+  <text x="360" y="257" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="600" fill="#15803d" text-anchor="middle">🍃 노도강</text>
+
+  <!-- District chips sample -->
+  <rect x="112" y="280" width="64" height="26" rx="13" fill="#eff6ff" stroke="#bfdbfe" stroke-width="1"/>
+  <text x="144" y="297" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#2563eb" text-anchor="middle">노원구</text>
+  <rect x="184" y="280" width="64" height="26" rx="13" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="216" y="297" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#64748b" text-anchor="middle">도봉구</text>
+  <rect x="256" y="280" width="64" height="26" rx="13" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="288" y="297" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#64748b" text-anchor="middle">마포구</text>
+  <rect x="328" y="280" width="64" height="26" rx="13" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="360" y="297" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#64748b" text-anchor="middle">은평구</text>
+
+  <!-- Divider -->
+  <line x1="112" y1="322" x2="548" y2="322" stroke="#f1f5f9" stroke-width="1.5"/>
+
+  <!-- Budget section -->
+  <text x="112" y="348" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.5">예산</text>
+
+  <!-- Price pills -->
+  <rect x="112" y="358" width="52" height="30" rx="15" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="138" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">3억</text>
+  <rect x="172" y="358" width="52" height="30" rx="15" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="198" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">4억</text>
+  <rect x="232" y="358" width="52" height="30" rx="15" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="258" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">5억</text>
+
+  <!-- 6억 selected pill -->
+  <rect x="292" y="354" width="72" height="38" rx="19" fill="#2563eb" filter="url(#sm-shadow)"/>
+  <text x="328" y="375" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" font-weight="700" fill="white" text-anchor="middle">6억</text>
+  <text x="328" y="388" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="9" fill="#bfdbfe" text-anchor="middle">✨ 추천</text>
+
+  <rect x="372" y="358" width="52" height="30" rx="15" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="398" y="377" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#94a3b8" text-anchor="middle">8억</text>
+
+  <!-- Divider -->
+  <line x1="112" y1="410" x2="548" y2="410" stroke="#f1f5f9" stroke-width="1.5"/>
+
+  <!-- Period -->
+  <text x="112" y="435" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="700" fill="#64748b" letter-spacing="0.5">기간</text>
+  <rect x="112" y="446" width="52" height="28" rx="14" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="138" y="464" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">1개월</text>
+  <rect x="172" y="442" width="62" height="36" rx="18" fill="#2563eb"/>
+  <text x="203" y="463" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">3개월</text>
+  <rect x="242" y="446" width="52" height="28" rx="14" fill="white" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="268" y="464" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#94a3b8" text-anchor="middle">6개월</text>
+
+  <!-- CTA Button -->
+  <rect x="112" y="500" width="426" height="50" rx="14" fill="url(#bluebtn)" filter="url(#sm-shadow)"/>
+  <text x="325" y="531" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="16" font-weight="700" fill="white" text-anchor="middle">🔍 아파트 찾기</text>
+
+  <!-- ───────── RIGHT PANEL ───────── -->
+
+  <!-- Summary bar -->
+  <rect x="620" y="80" width="580" height="48" rx="14" fill="white" filter="url(#sm-shadow)"/>
+  <rect x="620" y="80" width="580" height="48" rx="14" fill="none" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="648" y="111" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#64748b">노원구 · 최근 3개월 · <tspan font-weight="700" fill="#2563eb">6억 이하</tspan>  |  총 <tspan font-weight="700" fill="#1e293b">247건</tspan> · 단지 <tspan font-weight="700" fill="#1e293b">31개</tspan> · 평균 <tspan font-weight="700" fill="#ea580c">4.8억</tspan></text>
+
+  <!-- TOP 3 label -->
+  <text x="620" y="162" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" font-weight="800" fill="#64748b" letter-spacing="1">TOP 3 추천 단지</text>
+
+  <!-- Gold card -->
+  <rect x="620" y="172" width="580" height="148" rx="18" fill="white" filter="url(#top3-shadow)"/>
+  <rect x="620" y="172" width="580" height="148" rx="18" fill="none" stroke="#fbbf24" stroke-width="2"/>
+  <rect x="620" y="172" width="580" height="6" rx="3" fill="#f59e0b"/>
+  <text x="648" y="214" font-family="Apple Color Emoji, Segoe UI Emoji, sans-serif" font-size="26">🥇</text>
+  <text x="688" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="17" font-weight="800" fill="#1e293b">상계동 주공아파트</text>
+  <rect x="688" y="216" width="42" height="20" rx="10" fill="#fef3c7"/>
+  <text x="709" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" font-weight="700" fill="#d97706" text-anchor="middle">98점</text>
+  <rect x="1108" y="188" width="72" height="52" rx="12" fill="#fffbeb" stroke="#fde68a" stroke-width="1"/>
+  <text x="1144" y="210" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#92400e" text-anchor="middle">평균</text>
+  <text x="1144" y="230" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="14" font-weight="800" fill="#ea580c" text-anchor="middle">5.1억</text>
+  <text x="648" y="268" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#64748b">🚇 4호선 도보 5분  ·  📐 59~84㎡  ·  🏗 1989년식</text>
+  <text x="648" y="296" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#475569" font-style="italic">"교통 편리하고 학원가 가깝다. 재건축 기대감도 있는 단지."</text>
+
+  <!-- Silver card -->
+  <rect x="620" y="336" width="280" height="120" rx="16" fill="white" filter="url(#sm-shadow)"/>
+  <rect x="620" y="336" width="280" height="120" rx="16" fill="none" stroke="#cbd5e1" stroke-width="1.5"/>
+  <rect x="620" y="336" width="280" height="5" rx="3" fill="#94a3b8"/>
+  <text x="645" y="372" font-family="Apple Color Emoji, Segoe UI Emoji, sans-serif" font-size="20">🥈</text>
+  <text x="676" y="369" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="14" font-weight="700" fill="#1e293b">월계동 인덕원아파트</text>
+  <text x="645" y="400" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#64748b">💰 3.9억~5.3억  ·  📐 59~84㎡</text>
+  <text x="645" y="420" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#94a3b8">🚇 6호선 근접 · 조용한 주거환경</text>
+  <text x="645" y="442" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#475569" font-style="italic">"공원 인접, 신혼 첫 집으로 딱."</text>
+
+  <!-- Bronze card -->
+  <rect x="920" y="336" width="280" height="120" rx="16" fill="white" filter="url(#sm-shadow)"/>
+  <rect x="920" y="336" width="280" height="120" rx="16" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.6"/>
+  <rect x="920" y="336" width="280" height="5" rx="3" fill="#d97706" opacity="0.7"/>
+  <text x="945" y="372" font-family="Apple Color Emoji, Segoe UI Emoji, sans-serif" font-size="20">🥉</text>
+  <text x="976" y="369" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="14" font-weight="700" fill="#1e293b">도봉동 현대아파트</text>
+  <text x="945" y="400" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#64748b">💰 4.5억~5.7억  ·  📐 72㎡</text>
+  <text x="945" y="420" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#94a3b8">🚇 1호선 · 넓은 면적 합리적 가격</text>
+  <text x="945" y="442" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="11" fill="#475569" font-style="italic">"가성비 최고, 넓어서 좋아요."</text>
+
+  <!-- Ranked list preview -->
+  <rect x="620" y="474" width="580" height="230" rx="16" fill="white" filter="url(#sm-shadow)"/>
+  <rect x="620" y="474" width="580" height="230" rx="16" fill="none" stroke="#e4eaf4" stroke-width="1"/>
+  <text x="648" y="504" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" font-weight="700" fill="#94a3b8" letter-spacing="0.5">전체 단지 순위</text>
+
+  <!-- Row items -->
+  <text x="648" y="534" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#64748b" font-weight="600">4위</text>
+  <text x="690" y="534" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#1e293b" font-weight="600">공릉동 태릉현대아파트</text>
+  <text x="1140" y="534" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#ea580c" font-weight="700" text-anchor="end">4.7억</text>
+  <line x1="648" y1="548" x2="1172" y2="548" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="648" y="572" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#64748b" font-weight="600">5위</text>
+  <text x="690" y="572" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#1e293b" font-weight="600">하계동 극동아파트</text>
+  <text x="1140" y="572" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#ea580c" font-weight="700" text-anchor="end">5.2억</text>
+  <line x1="648" y1="586" x2="1172" y2="586" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="648" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#64748b" font-weight="600">6위</text>
+  <text x="690" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#1e293b" font-weight="600">중계동 청구아파트</text>
+  <text x="1140" y="610" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#ea580c" font-weight="700" text-anchor="end">5.5억</text>
+  <line x1="648" y1="624" x2="1172" y2="624" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="648" y="648" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#64748b" font-weight="600">7위</text>
+  <text x="690" y="648" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#1e293b" font-weight="600">성북동 래미안아파트</text>
+  <text x="1140" y="648" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#ea580c" font-weight="700" text-anchor="end">5.8억</text>
+  <line x1="648" y1="662" x2="1172" y2="662" stroke="#f1f5f9" stroke-width="1"/>
+
+  <text x="648" y="686" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="12" fill="#94a3b8">+ 24개 단지 더 보기…</text>
+
+  <!-- Bottom -->
+  <text x="80" y="764" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="13" fill="#94a3b8">출처: 국토교통부 실거래가 공개시스템</text>
+  <text x="1200" y="764" font-family="-apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif" font-size="14" font-weight="700" fill="#2563eb" text-anchor="end">newlywed-apt.vercel.app</text>
+</svg>
