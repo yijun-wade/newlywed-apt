@@ -605,15 +605,23 @@ async function doFetch() {
 
   const allTrades = []
   try {
-    for (const r of regions) {
-      for (const ym of ymList) {
-        try {
+    const tasks = regions.flatMap(r =>
+      ymList.map(ym => ({ r, ym, key: `trades_${r.code}_${ym}` }))
+    )
+    const results = await Promise.all(tasks.map(async ({ r, ym, key }) => {
+      try {
+        const cached = sessionStorage.getItem(key)
+        const xml = cached || await (async () => {
           const res = await fetch(`/api/trades?lawd_cd=${r.code}&deal_ymd=${ym}`)
           if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          allTrades.push(...parseXml(await res.text(), r.name))
-        } catch(e) { console.warn(r.name, ym, e) }
-      }
-    }
+          const text = await res.text()
+          try { sessionStorage.setItem(key, text) } catch(e) {}
+          return text
+        })()
+        return parseXml(xml, r.name)
+      } catch(e) { console.warn(r.name, ym, e); return [] }
+    }))
+    results.forEach(trades => allTrades.push(...trades))
 
     if (!allTrades.length) { showErr('조회된 데이터가 없습니다.'); return }
 
